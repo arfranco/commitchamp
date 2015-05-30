@@ -2,7 +2,7 @@ require 'httparty'
 
 module Commitchamp
 
-  ACCESS_TOKEN = ENV['29b922846cb021186457380079925cb696ed5714']
+  ACCESS_TOKEN = ENV['ACCESS_TOKEN']
 
   class Github
     include HTTParty
