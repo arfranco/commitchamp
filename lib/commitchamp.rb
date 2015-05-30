@@ -11,6 +11,18 @@ module Commitchamp
     def initialize
       @github = Github.new
     end
+
+    def prompt(question, validator)
+      puts question
+      input = gets.chomp
+      until input =~ validator
+        puts "Sorry, wrong answer."
+        puts question
+        input = gets.chomp
+      end
+      input
+    end
+    
   end
 end
 
