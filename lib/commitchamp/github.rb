@@ -2,14 +2,14 @@ require 'httparty'
 
 module Commitchamp
 
-  ACCESS_TOKEN = ENV['ACCESS_TOKEN']
+  OAUTH_TOKEN = ENV['OAUTH_TOKEN']
 
   class Github
     include HTTParty
     base_uri "https://api.github.com"
 
     def initialize
-      @headers = { "Authorization" => "token #{ACCESS_TOKEN}",
+      @headers = { "Authorization" => "token #{OAUTH_TOKEN}",
                    "User-Agent" => "HTTParty" }
     end
 
@@ -17,7 +17,14 @@ module Commitchamp
       self.class.get("/users/#{username}", headers: @headers)
     end
 
-    def get_repo(org_name)
+    def get_org(org_name, page=1)
+      params = {
+        page: page
+      }
+      options = {
+        headers: @headers,
+        query: params
+      }
       self.class.get("/orgs/#{org_name}/repos", headers: @headers)
     end
 
