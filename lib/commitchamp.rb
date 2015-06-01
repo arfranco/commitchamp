@@ -21,12 +21,22 @@ module Commitchamp
         organization = prompt("Great! Which organization would you like to fetch from?", /^\w+$/)
         org = @github.get_org(organization)
         org.each do |repo|
-
+          final_result = {
+            owner: repo['owner']['login'],
+            full_name: repo['full_name'],
+            name: repo['name'] 
+          }
+        self.create_repo(final_result)
+        end
       else
         existing_org = prompt("Great! Here are the existing organizations. Please choose an organization:", /^\w+$/)
+        Repo.all
+      end
     end
 
-    def 
+    def create_repo(org_hash)
+      Repo.create(org_hash)
+    end
 
     def prompt(question, validator)
       puts question
